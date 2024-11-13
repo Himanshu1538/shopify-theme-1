@@ -1,0 +1,55 @@
+// {
+//   "name": "Footer Group Settings",
+//   "settings": {
+//     "quick_links_heading": {
+//       "type": "text",
+//       "default": "Quick Links",
+//       "label": "Quick Links Heading"
+//     },
+//     "quick_links_menu": {
+//       "type": "link_list",
+//       "label": "Quick Links Menu",
+//       "default": "footer"
+//     },
+//     "info_heading": {
+//       "type": "text",
+//       "default": "Info",
+//       "label": "Info Heading"
+//     },
+//     "info_menu": {
+//       "type": "link_list",
+//       "label": "Info Menu",
+//       "default": "footer"
+//     },
+//     "mission_heading": {
+//       "type": "text",
+//       "default": "Our Mission",
+//       "label": "Mission Heading"
+//     },
+//     "mission_subtext": {
+//       "type": "richtext",
+//       "default": "<p>Share contact information, store details, and brand content with your customers.</p>",
+//       "label": "Mission Subtext"
+//     },
+//     "newsletter_enable": {
+//       "type": "checkbox",
+//       "label": "Show Newsletter",
+//       "default": true
+//     },
+//     "newsletter_heading": {
+//       "type": "text",
+//       "label": "Newsletter Heading",
+//       "default": "Subscribe to our emails"
+//     },
+//     "show_social": {
+//       "type": "checkbox",
+//       "label": "Show Social Media Icons",
+//       "default": true
+//     },
+//     "policies": {
+//       "type": "link_list",
+//       "label": "Policy Links",
+//       "default": "footer"
+//     }
+//   }
+// }

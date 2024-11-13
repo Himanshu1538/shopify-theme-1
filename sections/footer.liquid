@@ -1,0 +1,170 @@
+{{ 'section-footer.css' | asset_url | stylesheet_tag }}{% comment %} {{ 'component-newsletter.css' | asset_url | stylesheet_tag }} {% endcomment %}
+{% comment %} {{ 'component-list-menu.css' | asset_url | stylesheet_tag }} {% endcomment %}
+{{ 'component-list-payment.css' | asset_url | stylesheet_tag }}
+{{ 'component-list-social.css' | asset_url | stylesheet_tag }}
+
+
+<footer class="bg-gray-100 text-gray-600 py-10 mt-10">
+
+  {% liquid
+    assign has_social_icons = true
+    if settings.social_facebook_link == blank and settings.social_instagram_link == blank
+      assign has_social_icons = false
+    endif
+  %}
+  <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+
+    <div>
+      <h2 class="text-base font-semibold mb-4">{{ section.settings.quick_links_heading }}</h2>
+      <ul>
+        {% for link in linklists[section.settings.quick_links_menu].links %}
+          <li class="mb-2">
+            <a href="{{ link.url }}" class="text-sm hover:underline">{{ link.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-base font-semibold mb-4">{{ section.settings.info_heading }}</h2>
+      <ul>
+        {% for link in linklists[section.settings.info_menu].links %}
+          <li class="mb-2">
+            <a href="{{ link.url }}" class="text-sm hover:underline">{{ link.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-base font-semibold mb-4">{{ section.settings.mission_heading }}</h2>
+      <p class="text-sm">{{ section.settings.mission_subtext }}</p>
+    </div>
+
+  </div>
+
+  <div class="container mx-auto px-4 mt-10 text-center">
+    {% if section.settings.newsletter_enable %}
+      <h2 class="text-lg font-semibold mb-4">{{ section.settings.newsletter_heading }}</h2>
+      <form
+        action="/contact"
+        method="post"
+        class="flex flex-col md:flex-row items-center justify-center gap-4">
+        <input
+          type="email"
+          name="contact[email]"
+          placeholder="Email"
+          class="px-4 py-2 border"
+          required>
+        <button type="submit" class="text-sm font-medium text-white py-2 px-4 bg-gray-900">Subscribe</button>
+
+
+      </form>
+    {% endif %}
+
+    {% if section.settings.show_social and has_social_icons %}
+      {% render 'social-icons'
+        , class: 'footer__list-social' %}
+    {% endif %}
+  </div>
+
+  <div class="container mx-auto px-4 mt-10 border-t border-gray-400 pt-6 text-center text-sm">
+    {% comment %} <ul class="flex justify-center space-x-4 mb-4">
+                  {% for policy in section.settings.policies %}
+                    <li>
+                      <a href="{{ policy.url }}" class="hover:underline">{{ policy.title }}</a>
+                    </li>
+                  {% endfor %}
+            </ul> {% endcomment %}
+
+    <div class="footer__column footer__column--info mb-6">
+      {% if section.settings.payment_enable %}
+        <div class="mt-6">
+          {% comment %} <span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span> {% endcomment %}
+          <ul class="flex flex-wrap justify-center -my-2 pt-4 pl-0 md:justify-end md:-m-2 md:pt-0">
+            {% for type in shop.enabled_payment_types %}
+              <li class="flex items-center p-2">
+                {{ type | payment_type_svg_tag: class: "icon icon--full-color" }}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    </div>
+
+
+    <p>{{ shop.name }} &copy; {{ 'now' | date: '%Y' }}</p>
+  </div>
+</footer>
+
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "text",
+        "id": "quick_links_heading",
+        "label": "Quick Links Heading",
+        "default": "Quick Links"
+      },
+      {
+        "type": "link_list",
+        "id": "quick_links_menu",
+        "label": "Quick Links Menu",
+        "default": "footer"
+      },
+      {
+        "type": "text",
+        "id": "info_heading",
+        "label": "Info Heading",
+        "default": "Info"
+      },
+      {
+        "type": "link_list",
+        "id": "info_menu",
+        "label": "Info Menu",
+        "default": "footer"
+      }, {
+        "type": "text",
+        "id": "mission_heading",
+        "label": "Mission Heading",
+        "default": "Our Mission"
+      }, {
+        "type": "richtext",
+        "id": "mission_subtext",
+        "label": "Mission Subtext",
+        "default": "<p>Share contact information, store details, and brand content with your customers.</p>"
+      }, {
+        "type": "checkbox",
+        "id": "newsletter_enable",
+        "label": "Show Newsletter",
+        "default": true
+      }, {
+        "type": "text",
+        "id": "newsletter_heading",
+        "label": "Newsletter Heading",
+        "default": "Subscribe to our emails"
+      }, {
+        "type": "checkbox",
+        "id": "show_social",
+        "label": "Show Social Media Icons",
+        "default": true
+      }, {
+        "type": "checkbox",
+        "id": "payment_enable",
+        "label": "Show Payment Icons",
+        "default": true
+      }, {
+        "type": "link_list",
+        "id": "policies",
+        "label": "Policy Links",
+        "default": "footer"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Default"
+      }
+    ]
+  }
+{% endschema %}
